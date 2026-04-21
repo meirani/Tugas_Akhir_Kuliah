@@ -1,0 +1,15 @@
+# Python system files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# # Streamlit
+# .streamlit/config.toml
+# .streamlit/secrets.toml
+
+# Virtual Studio Code
+.vscode/
+
+# Data & Models (Sangat disarankan jika file besar)
+*.xlsx
+*.csv

@@ -1,0 +1,15 @@
+[theme]
+# Warna tombol, slider, dan elemen aktif lainnya
+primaryColor = "#FFFFFF"
+
+# Warna background utama aplikasi
+backgroundColor = "#f3f7fa"
+
+# Warna background untuk sidebar dan kotak input
+secondaryBackgroundColor = "#4c80f8"
+
+# Warna teks utama
+textColor = "#000000"
+
+# Pilihan font: "sans serif", "serif", atau "monospace"
+font = "sans serif"

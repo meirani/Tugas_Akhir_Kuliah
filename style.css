@@ -1,0 +1,232 @@
+/* 
+font global
+*/
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap');
+
+html,
+body,
+[class*="css"] {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Background Utama */
+.main {
+    background-color: #f0f2f6;
+}
+
+/* Card untuk setiap section */
+.st-emotion-cache-12w0qpk,
+.st-emotion-cache-6qob1r {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    margin-bottom: 1rem;
+}
+
+/* Info Box */
+.stAlert {
+    border-radius: 12px;
+    border: none;
+}
+
+/* Image */
+img {
+    border-radius: 12px;
+    margin-bottom: 30px;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 20px;
+    color: #888;
+    font-size: 0.8rem;
+}
+
+/* Container untuk menengahkan semua elemen hero */
+.hero-container {
+    text-align: center;
+    padding: 0 0 1rem 0;
+    animation: fadeIn 1.2s ease-in-out;
+    /* Efek muncul perlahan */
+}
+
+/* Animasi Fade In */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-15px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Inti Judul */
+.title-highlight {
+    font-size: 2.8rem;
+    font-weight: 900;
+    line-height: 1.2;
+    /* Gradasi warna sesuai dengan palet Biru/Navy pilihanmu */
+    background: linear-gradient(90deg, #4c80f8, #6c3ce5);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Sub Judul */
+.title-secondary {
+    font-size: 1.4rem;
+    color: #04007a;
+    font-weight: 600;
+    display: block;
+    margin-top: 5px;
+    line-height: 1.4;
+    margin-bottom: 30px;
+}
+
+/* Paragraf Subtitle */
+.hero-sub {
+    font-size: 1.15rem;
+    color: #4A5568;
+    max-width: 800px;
+    /* Membatasi lebar teks agar tidak terlalu memanjang ke samping */
+    margin: 20px auto 30px auto;
+    /* Auto margin untuk rata tengah */
+    line-height: 1.6;
+    margin-top: 100px;
+    text-align: center;
+}
+
+
+/*
+   SIDEBAR
+ */
+
+/* teks judul dan label */
+[data-testid="stSidebar"] h1,
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3,
+[data-testid="stSidebar"] label,
+[data-testid="stSidebar"] p {
+    color: #ffffff !important;
+}
+
+/* 3. warna Dropdown */
+[data-testid="stSidebar"] div[data-baseweb="select"] div {
+    color: #000000 !important;
+}
+
+/* teks navigasi */
+[data-testid="stSidebarNav"] span {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    font-size: 1.1rem !important;
+}
+
+/* background kotak angka dan teksnya */
+[data-testid="stMultiSelect"] span[data-baseweb="tag"] {
+    /* Aku beri contoh warna Soft Orange/Coral agar beda dari Slider yang biru. */
+    /* Silakan ganti kode hex ini dengan warna apa pun yang kamu mau! */
+    background-color: #536eec !important;
+    color: #FFFFFF !important;
+    /* Warna teks angka di dalamnya (Putih) */
+    border-radius: 6px !important;
+}
+
+/* tombol silang (x) di sebelah angka bulan */
+[data-testid="stMultiSelect"] span[data-baseweb="tag"] svg {
+    fill: #FFFFFF !important;
+}
+
+/*  kotak bulan Hover */
+[data-testid="stMultiSelect"] span[data-baseweb="tag"]:hover {
+    background-color: #FF6B50 !important;
+}
+
+
+/*
+   CUSTOM COLORED TEXT BOXES (CALLOUTS)
+ */
+
+/* Kotak Tema Ungu */
+.box-purple {
+    background-color: #f6f5ff;
+    /* Ungu super pucat/transparan */
+    border-left: 5px solid #6c49f9;
+    /* Garis tepi kiri ungu tegas */
+    padding: 15px 20px;
+    border-radius: 8px;
+    color: #000000;
+    /* Teks gelap agar tetap terbaca */
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+/* Kotak Tema Biru */
+.box-blue {
+    background-color: #EFF6FF;
+    /* Biru super pucat */
+    border-left: 5px solid #3B82F6;
+    /* Garis tepi kiri biru tegas */
+    padding: 15px 20px;
+    border-radius: 8px;
+    color: #000000;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+/* OUTLINE BOX */
+.box-outline {
+    border: 2px solid #E2E8F0;
+    /* Garis abu-abu terang */
+    border-radius: 12px;
+    padding: 16px 20px;
+    background-color: transparent;
+    /* Tanpa warna background */
+    color: #000000;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+}
+
+.box-outline:hover {
+    border-color: #7C5CFC;
+    /* Kalau di-hover mouse, garisnya jadi Ungu */
+    box-shadow: 0 4px 12px rgba(124, 92, 252, 0.1);
+}
+
+/* GRADIENT BOX */
+.box-gradientpurple {
+    background: linear-gradient(135deg, #ffffff 0%, #dde5ff 100%);
+    /* Putih pudar ke Biru super pudar */
+    border: 1px solid #E0E7FF;
+    border-radius: 12px;
+    padding: 16px 20px;
+    color: #000000;
+    margin-bottom: 15px;
+}
+
+.box-gradientblue {
+    background: linear-gradient(135deg, #ffffff 0%, #dfebff 100%);
+    /* Putih pudar ke Hijau super pudar */
+    border: 1px solid #E0E7FF;
+    border-radius: 12px;
+    padding: 16px 20px;
+    color: #000000;
+    margin-bottom: 15px;
+}
+
+.box-gradientorange {
+    background: linear-gradient(135deg, #ffffff 0%, #ffecdc 100%);
+    /* Putih pudar ke Hijau super pudar */
+    border: 1px solid #E0E7FF;
+    border-radius: 12px;
+    padding: 16px 20px;
+    color: #000000;
+    margin-bottom: 15px;
+}
