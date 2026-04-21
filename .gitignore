@@ -10,6 +10,6 @@ __pycache__/
 # Virtual Studio Code
 .vscode/
 
-# Data & Models (Sangat disarankan jika file besar)
-*.xlsx
-*.csv
+# # Data & Models (Sangat disarankan jika file besar)
+# *.xlsx
+# *.csv
