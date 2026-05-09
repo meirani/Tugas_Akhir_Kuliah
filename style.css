@@ -1,7 +1,7 @@
-/* 
-font global
-*/
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap');
+/* =============================================
+   GLOBAL FONT
+   ============================================= */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 html,
 body,
@@ -9,54 +9,204 @@ body,
     font-family: 'Inter', sans-serif;
 }
 
-/* Background Utama */
+/* =============================================
+   BACKGROUND & LAYOUT UTAMA
+   ============================================= */
 .main {
-    background-color: #f0f2f6;
+    background-color: #F4F6FB;
 }
 
-/* Card untuk setiap section */
-.st-emotion-cache-12w0qpk,
-.st-emotion-cache-6qob1r {
-    background-color: white;
-    padding: 2rem;
-    border-radius: 15px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-    margin-bottom: 1rem;
+.block-container {
+    padding-top: 2rem !important;
+    padding-bottom: 3rem !important;
 }
 
-/* Info Box */
+/* =============================================
+   STREAMLIT NATIVE COMPONENT POLISH
+   ============================================= */
+
+/* Judul section (st.subheader) */
+h2,
+h3 {
+    font-weight: 700 !important;
+    color: #1A1D2E !important;
+    letter-spacing: -0.3px;
+}
+
+/* Divider */
+hr {
+    border: none !important;
+    border-top: 1.5px solid #E8ECF4 !important;
+    margin: 1.5rem 0 !important;
+}
+
+/* Tabel Streamlit */
+[data-testid="stTable"] table,
+.stDataFrame table {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #E8ECF4;
+    font-size: 0.9rem;
+}
+
+[data-testid="stTable"] thead tr,
+.stDataFrame thead tr {
+    background: linear-gradient(90deg, #5B6EF5, #7C3AED) !important;
+    color: white !important;
+}
+
+/* Image */
+img {
+    border-radius: 16px;
+    margin-bottom: 20px;
+}
+
+/* =============================================
+   SIDEBAR — PUTIH & CLEAN
+   ============================================= */
+[data-testid="stSidebar"] {
+    background: #FFFFFF !important;
+    border-right: 1.5px solid #E8ECF4 !important;
+}
+
+[data-testid="stSidebar"]::before {
+    content: "";
+    display: block;
+    height: 4px;
+    background: linear-gradient(90deg, #5B6EF5, #7C3AED, #EC4899, #F59E0B);
+    border-radius: 0 0 4px 4px;
+}
+
+/* Teks navigasi sidebar */
+[data-testid="stSidebarNav"] span {
+    color: #6B7280 !important;
+    font-weight: 600 !important;
+    font-size: 0.95rem !important;
+    transition: color 0.2s ease;
+}
+
+/* Tab aktif sidebar */
+[data-testid="stSidebarNav"] a[aria-current="page"] {
+    background: linear-gradient(135deg, #EEF0FE, #EDE9FD) !important;
+    border-radius: 10px !important;
+}
+
+[data-testid="stSidebarNav"] a[aria-current="page"] span {
+    color: #5B6EF5 !important;
+    font-weight: 700 !important;
+}
+
+[data-testid="stSidebarNav"] a:hover span {
+    color: #5B6EF5 !important;
+}
+
+[data-testid="stSidebarNav"] a:hover {
+    background: #F4F6FB !important;
+    border-radius: 10px !important;
+}
+
+/* =============================================
+   SLIDER — Rentang Tahun & sejenisnya
+   ============================================= */
+
+/* Track slider (garis latar) */
+[data-testid="stSlider"] div[data-baseweb="slider"] div[role="progressbar"],
+[data-testid="stSlider"] [data-baseweb="slider"]>div>div:first-child {
+    background: #DDE1F0 !important;
+}
+
+/* Bagian track yang aktif (terisi) */
+[data-testid="stSlider"] div[data-baseweb="slider"] div[data-testid="stSliderTrackFill"],
+[data-testid="stSlider"] [data-baseweb="slider"] div[data-baseweb="slider-track-fill"] {
+    background: linear-gradient(90deg, #5B6EF5, #7C3AED) !important;
+}
+
+/* Thumb (bulatan yang bisa digeser) */
+[data-testid="stSlider"] div[role="slider"] {
+    background: #5B6EF5 !important;
+    border: 3px solid #fff !important;
+    box-shadow: 0 0 0 2px #5B6EF5 !important;
+}
+
+/* Track keseluruhan agar tidak hilang */
+[data-testid="stSlider"] [data-baseweb="slider"] {
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+}
+
+/* Label, heading, paragraf di sidebar */
+[data-testid="stSidebar"] h1,
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3,
+[data-testid="stSidebar"] label,
+[data-testid="stSidebar"] p {
+    color: #374151 !important;
+    font-weight: 500;
+}
+
+/* Dropdown di sidebar */
+[data-testid="stSidebar"] div[data-baseweb="select"] div {
+    color: #1A1D2E !important;
+    background-color: #F8F9FC !important;
+    border-color: #DDE1F0 !important;
+    border-radius: 10px !important;
+}
+
+/* MultiSelect tags */
+[data-testid="stMultiSelect"] span[data-baseweb="tag"] {
+    background: linear-gradient(135deg, #5B6EF5, #7C3AED) !important;
+    color: #FFFFFF !important;
+    border-radius: 8px !important;
+    font-weight: 500;
+    font-size: 0.8rem;
+}
+
+[data-testid="stMultiSelect"] span[data-baseweb="tag"] svg {
+    fill: rgba(255, 255, 255, 0.8) !important;
+}
+
+[data-testid="stMultiSelect"] span[data-baseweb="tag"]:hover {
+    background: linear-gradient(135deg, #4F63E8, #6D28D9) !important;
+}
+
+/* =============================================
+   ALERT / INFO BOX BAWAAN STREAMLIT
+   ============================================= */
 .stAlert {
     border-radius: 12px;
     border: none;
 }
 
-/* Image */
-img {
-    border-radius: 12px;
-    margin-bottom: 30px;
-}
-
-/* Footer */
+/* =============================================
+   FOOTER
+   ============================================= */
 .footer {
     text-align: center;
-    padding: 20px;
-    color: #888;
+    padding: 24px 20px 8px;
+    color: #9CA3AF;
     font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0.2px;
 }
 
-/* Container untuk menengahkan semua elemen hero */
+.footer hr {
+    border-top: 1.5px solid #E8ECF4 !important;
+    margin-bottom: 16px !important;
+}
+
+/* =============================================
+   HERO SECTION
+   ============================================= */
 .hero-container {
     text-align: center;
-    padding: 0 0 1rem 0;
-    animation: fadeIn 1.2s ease-in-out;
-    /* Efek muncul perlahan */
+    padding: 2rem 1rem 1rem;
+    animation: fadeInUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-/* Animasi Fade In */
-@keyframes fadeIn {
+@keyframes fadeInUp {
     0% {
         opacity: 0;
-        transform: translateY(-15px);
+        transform: translateY(20px);
     }
 
     100% {
@@ -65,168 +215,421 @@ img {
     }
 }
 
-/* Inti Judul */
+/* Badge kecil di atas judul */
+.hero-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #EEF0FE, #EDE9FD);
+    color: #5B6EF5;
+    border: 1px solid #C7CCF8;
+    border-radius: 999px;
+    padding: 5px 16px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+}
+
+/* Judul utama hero */
 .title-highlight {
-    font-size: 2.8rem;
+    font-size: 2.7rem;
     font-weight: 900;
-    line-height: 1.2;
-    /* Gradasi warna sesuai dengan palet Biru/Navy pilihanmu */
-    background: linear-gradient(90deg, #4c80f8, #6c3ce5);
+    line-height: 1.15;
+    background: linear-gradient(125deg, #5B6EF5 0%, #7C3AED 45%, #EC4899 100%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
 }
 
-/* Sub Judul */
+/* Sub-judul */
 .title-secondary {
-    font-size: 1.4rem;
-    color: #04007a;
-    font-weight: 600;
+    font-size: 1.25rem;
+    color: #6B7280;
+    font-weight: 500;
     display: block;
-    margin-top: 5px;
-    line-height: 1.4;
-    margin-bottom: 30px;
+    line-height: 1.5;
+    margin-bottom: 20px;
 }
 
-/* Paragraf Subtitle */
+/* Tagline/deskripsi pendek */
 .hero-sub {
-    font-size: 1.15rem;
-    color: #4A5568;
-    max-width: 800px;
-    /* Membatasi lebar teks agar tidak terlalu memanjang ke samping */
-    margin: 20px auto 30px auto;
-    /* Auto margin untuk rata tengah */
-    line-height: 1.6;
-    margin-top: 100px;
+    font-size: 1.05rem;
+    color: #6B7280;
+    max-width: 760px;
+    margin: 16px auto 28px auto;
+    line-height: 1.7;
     text-align: center;
 }
 
-
-/*
-   SIDEBAR
- */
-
-/* teks judul dan label */
-[data-testid="stSidebar"] h1,
-[data-testid="stSidebar"] h2,
-[data-testid="stSidebar"] h3,
-[data-testid="stSidebar"] label,
-[data-testid="stSidebar"] p {
-    color: #ffffff !important;
+/* =============================================
+   METRIC / STAT CARDS (untuk st.metric)
+   ============================================= */
+[data-testid="stMetric"] {
+    background: #FFFFFF;
+    border: 1.5px solid #E8ECF4;
+    border-radius: 14px;
+    padding: 1.2rem 1.4rem !important;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 
-/* 3. warna Dropdown */
-[data-testid="stSidebar"] div[data-baseweb="select"] div {
-    color: #000000 !important;
+[data-testid="stMetric"]:hover {
+    box-shadow: 0 6px 20px rgba(91, 110, 245, 0.1);
+    transform: translateY(-2px);
 }
 
-/* teks navigasi */
-[data-testid="stSidebarNav"] span {
-    color: #ffffff !important;
-    font-weight: 700 !important;
-    font-size: 1.1rem !important;
+[data-testid="stMetric"] label {
+    color: #6B7280 !important;
+    font-size: 0.82rem !important;
+    font-weight: 600 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-/* background kotak angka dan teksnya */
-[data-testid="stMultiSelect"] span[data-baseweb="tag"] {
-    /* Aku beri contoh warna Soft Orange/Coral agar beda dari Slider yang biru. */
-    /* Silakan ganti kode hex ini dengan warna apa pun yang kamu mau! */
-    background-color: #536eec !important;
-    color: #FFFFFF !important;
-    /* Warna teks angka di dalamnya (Putih) */
-    border-radius: 6px !important;
+[data-testid="stMetric"] [data-testid="stMetricValue"] {
+    color: #1A1D2E !important;
+    font-size: 1.9rem !important;
+    font-weight: 800 !important;
 }
 
-/* tombol silang (x) di sebelah angka bulan */
-[data-testid="stMultiSelect"] span[data-baseweb="tag"] svg {
-    fill: #FFFFFF !important;
-}
+/* =============================================
+   BOX / CALLOUT COMPONENTS
+   Dipakai via st.markdown(..., unsafe_allow_html=True)
+   ============================================= */
 
-/*  kotak bulan Hover */
-[data-testid="stMultiSelect"] span[data-baseweb="tag"]:hover {
-    background-color: #FF6B50 !important;
-}
-
-
-/*
-   CUSTOM COLORED TEXT BOXES (CALLOUTS)
- */
-
-/* Kotak Tema Ungu */
-.box-purple {
-    background-color: #f6f5ff;
-    /* Ungu super pucat/transparan */
-    border-left: 5px solid #6c49f9;
-    /* Garis tepi kiri ungu tegas */
-    padding: 15px 20px;
-    border-radius: 8px;
-    color: #000000;
-    /* Teks gelap agar tetap terbaca */
-    margin-bottom: 15px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
-}
-
-/* Kotak Tema Biru */
-.box-blue {
-    background-color: #EFF6FF;
-    /* Biru super pucat */
-    border-left: 5px solid #3B82F6;
-    /* Garis tepi kiri biru tegas */
-    padding: 15px 20px;
-    border-radius: 8px;
-    color: #000000;
-    margin-bottom: 15px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
-}
-
-/* OUTLINE BOX */
-.box-outline {
-    border: 2px solid #E2E8F0;
-    /* Garis abu-abu terang */
-    border-radius: 12px;
+/* --- BASE SHARED STYLE --- */
+.box-purple,
+.box-blue,
+.box-green,
+.box-red,
+.box-amber,
+.box-outline,
+.box-gradientpurple,
+.box-gradientblue,
+.box-gradientorange,
+.box-gradientgreen,
+.box-gradientred,
+.box-info,
+.box-success,
+.box-warning,
+.box-danger,
+.card-stat,
+.card-highlight {
+    border-radius: 14px;
     padding: 16px 20px;
-    background-color: transparent;
-    /* Tanpa warna background */
-    color: #000000;
-    margin-bottom: 15px;
-    transition: all 0.3s ease;
+    margin-bottom: 14px;
+    color: #1A1D2E;
+    line-height: 1.65;
+    font-size: 0.95rem;
+    transition: box-shadow 0.25s ease, transform 0.2s ease;
+}
+
+/* --- BORDER-LEFT ACCENT BOXES --- */
+.box-purple {
+    background: #F5F3FF;
+    border-left: 4px solid #7C3AED;
+    border-radius: 0 12px 12px 0;
+}
+
+.box-blue {
+    background: #EFF6FF;
+    border-left: 4px solid #3B82F6;
+    border-radius: 0 12px 12px 0;
+}
+
+.box-green {
+    background: #F0FDF4;
+    border-left: 4px solid #22C55E;
+    border-radius: 0 12px 12px 0;
+}
+
+.box-red {
+    background: #FFF1F2;
+    border-left: 4px solid #F43F5E;
+    border-radius: 0 12px 12px 0;
+}
+
+.box-amber {
+    background: #FFFBEB;
+    border-left: 4px solid #F59E0B;
+    border-radius: 0 12px 12px 0;
+}
+
+/* --- OUTLINE BOX --- */
+.box-outline {
+    border: 1.5px solid #DDE1F0;
+    background: #FFFFFF;
 }
 
 .box-outline:hover {
-    border-color: #7C5CFC;
-    /* Kalau di-hover mouse, garisnya jadi Ungu */
-    box-shadow: 0 4px 12px rgba(124, 92, 252, 0.1);
+    border-color: #5B6EF5;
+    box-shadow: 0 4px 16px rgba(91, 110, 245, 0.08);
+    transform: translateY(-1px);
 }
 
-/* GRADIENT BOX */
+/* --- GRADIENT BOXES --- */
 .box-gradientpurple {
-    background: linear-gradient(135deg, #ffffff 0%, #dde5ff 100%);
-    /* Putih pudar ke Biru super pudar */
-    border: 1px solid #E0E7FF;
-    border-radius: 12px;
-    padding: 16px 20px;
-    color: #000000;
-    margin-bottom: 15px;
+    background: linear-gradient(135deg, #FFFFFF 0%, #F0ECFF 100%);
+    border: 1.5px solid #DDD6FE;
 }
 
 .box-gradientblue {
-    background: linear-gradient(135deg, #ffffff 0%, #dfebff 100%);
-    /* Putih pudar ke Hijau super pudar */
-    border: 1px solid #E0E7FF;
-    border-radius: 12px;
-    padding: 16px 20px;
-    color: #000000;
-    margin-bottom: 15px;
+    background: linear-gradient(135deg, #FFFFFF 0%, #DBEAFE 100%);
+    border: 1.5px solid #BFDBFE;
 }
 
 .box-gradientorange {
-    background: linear-gradient(135deg, #ffffff 0%, #ffecdc 100%);
-    /* Putih pudar ke Hijau super pudar */
-    border: 1px solid #E0E7FF;
-    border-radius: 12px;
-    padding: 16px 20px;
-    color: #000000;
-    margin-bottom: 15px;
+    background: linear-gradient(135deg, #FFFFFF 0%, #FEF3C7 100%);
+    border: 1.5px solid #FDE68A;
+}
+
+.box-gradientgreen {
+    background: linear-gradient(135deg, #FFFFFF 0%, #DCFCE7 100%);
+    border: 1.5px solid #BBF7D0;
+}
+
+.box-gradientred {
+    background: linear-gradient(135deg, #FFFFFF 0%, #FFE4E6 100%);
+    border: 1.5px solid #FECDD3;
+}
+
+/* --- SEMANTIC STATUS BOXES --- */
+.box-info {
+    background: linear-gradient(135deg, #EFF6FF, #E0EDFF);
+    border: 1.5px solid #BFDBFE;
+    color: #1E3A5F;
+}
+
+.box-success {
+    background: linear-gradient(135deg, #F0FDF4, #DCFCE7);
+    border: 1.5px solid #BBF7D0;
+    color: #14532D;
+}
+
+.box-warning {
+    background: linear-gradient(135deg, #FFFBEB, #FEF9C3);
+    border: 1.5px solid #FDE68A;
+    color: #713F12;
+}
+
+.box-danger {
+    background: linear-gradient(135deg, #FFF1F2, #FFE4E6);
+    border: 1.5px solid #FECDD3;
+    color: #881337;
+}
+
+/* --- RISIKO KATEGORI (khusus DBD) --- */
+.risk-high {
+    background: linear-gradient(135deg, #FFF1F2 0%, #FFE4E6 100%);
+    border: 1.5px solid #FDA4AF;
+    border-left: 5px solid #F43F5E;
+    border-radius: 0 14px 14px 0;
+    padding: 14px 18px;
+    margin-bottom: 10px;
+    color: #881337;
+    font-weight: 500;
+}
+
+.risk-medium {
+    background: linear-gradient(135deg, #FFFBEB 0%, #FEF9C3 100%);
+    border: 1.5px solid #FCD34D;
+    border-left: 5px solid #F59E0B;
+    border-radius: 0 14px 14px 0;
+    padding: 14px 18px;
+    margin-bottom: 10px;
+    color: #713F12;
+    font-weight: 500;
+}
+
+.risk-low {
+    background: linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%);
+    border: 1.5px solid #86EFAC;
+    border-left: 5px solid #22C55E;
+    border-radius: 0 14px 14px 0;
+    padding: 14px 18px;
+    margin-bottom: 10px;
+    color: #14532D;
+    font-weight: 500;
+}
+
+/* --- STAT CARD BESAR (highlight angka) --- */
+.card-stat {
+    background: #FFFFFF;
+    border: 1.5px solid #E8ECF4;
+    text-align: center;
+    padding: 20px 16px;
+}
+
+.card-stat:hover {
+    box-shadow: 0 8px 24px rgba(91, 110, 245, 0.1);
+    transform: translateY(-2px);
+}
+
+.card-stat .stat-value {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #1A1D2E;
+    display: block;
+    line-height: 1.1;
+}
+
+.card-stat .stat-label {
+    font-size: 0.8rem;
+    color: #9CA3AF;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 6px;
+    display: block;
+}
+
+/* --- CARD HIGHLIGHT (gradient header) --- */
+.card-highlight {
+    background: linear-gradient(135deg, #5B6EF5 0%, #7C3AED 100%);
+    color: white;
+    text-align: center;
+    font-weight: 600;
+}
+
+.card-highlight h3,
+.card-highlight strong {
+    color: white !important;
+}
+
+/* =============================================
+   SECTION HEADER COMPONENT
+   ============================================= */
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #E8ECF4;
+}
+
+.section-header .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #5B6EF5, #7C3AED);
+    flex-shrink: 0;
+}
+
+/* =============================================
+   GRAFIK / CHART CONTAINER
+   ============================================= */
+[data-testid="stPlotlyChart"],
+[data-testid="stVegaLiteChart"] {
+    background: #FFFFFF;
+    border-radius: 16px;
+    border: 1.5px solid #E8ECF4;
+    padding: 1rem;
+    overflow: hidden;
+}
+
+/* =============================================
+   DATAFRAME / TABLE STYLING
+   ============================================= */
+[data-testid="stDataFrame"] {
+    border-radius: 14px !important;
+    overflow: hidden;
+    border: 1.5px solid #E8ECF4 !important;
+}
+
+/* =============================================
+   BUTTON STYLING
+   ============================================= */
+[data-testid="stButton"] button {
+    background: linear-gradient(135deg, #5B6EF5, #7C3AED) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+    padding: 0.5rem 1.5rem !important;
+    transition: opacity 0.2s ease, transform 0.1s ease !important;
+}
+
+[data-testid="stButton"] button:hover {
+    opacity: 0.9 !important;
+    transform: translateY(-1px) !important;
+}
+
+/* =============================================
+   SELECT / DROPDOWN STYLING
+   ============================================= */
+div[data-baseweb="select"]>div {
+    border-color: #DDE1F0 !important;
+    border-radius: 10px !important;
+    background-color: #FFFFFF !important;
+    font-size: 0.9rem;
+    transition: border-color 0.2s ease;
+}
+
+div[data-baseweb="select"]>div:hover {
+    border-color: #5B6EF5 !important;
+}
+
+/* =============================================
+   TABS STYLING
+   ============================================= */
+[data-testid="stTabs"] [data-baseweb="tab-list"] {
+    background: #F0F2FA !important;
+    border-radius: 12px !important;
+    padding: 4px !important;
+    gap: 4px;
+}
+
+[data-testid="stTabs"] [data-baseweb="tab"] {
+    border-radius: 9px !important;
+    font-weight: 500 !important;
+    color: #6B7280 !important;
+    padding: 6px 18px !important;
+    transition: all 0.2s ease;
+}
+
+[data-testid="stTabs"] [aria-selected="true"] {
+    background: #FFFFFF !important;
+    color: #5B6EF5 !important;
+    font-weight: 700 !important;
+    box-shadow: 0 2px 8px rgba(91, 110, 245, 0.15) !important;
+}
+
+/* =============================================
+   EXPANDER STYLING
+   ============================================= */
+[data-testid="stExpander"] {
+    border: 1.5px solid #E8ECF4 !important;
+    border-radius: 12px !important;
+    overflow: hidden;
+}
+
+[data-testid="stExpander"] summary {
+    font-weight: 600 !important;
+    color: #1A1D2E !important;
+    padding: 0.8rem 1rem !important;
+    background: #F8F9FC;
+}
+
+/* =============================================
+   SCROLLBAR CUSTOM (halus)
+   ============================================= */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #F4F6FB;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #C4C9E0;
+    border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #5B6EF5;
 }

@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.express as px
+import plotly.graph_objects as go
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 from statsmodels.tsa.stattools import adfuller
 from sklearn.metrics import (
@@ -21,8 +22,9 @@ local_css("style.css")
 st.markdown(
     """
 <div class="hero-container" style="padding-bottom: 0;">
+    <div class="hero-badge">Validasi & Performa</div>
     <span class="title-highlight" style="font-size: 2.4rem;">Evaluasi Model Seasonal ARIMA</span>
-    <span class="title-secondary">Performa Prediksi Data Historis Kasus DBD</span>
+    <span class="title-secondary">Performa Prediksi Data Historis Kasus DBD DKI Jakarta</span>
 </div>
 """,
     unsafe_allow_html=True,
@@ -58,51 +60,63 @@ pred_test = results.predict(start=len(train), end=len(train) + len(test) - 1)
 mae = mean_absolute_error(test, pred_test)
 rmse = np.sqrt(mean_squared_error(test, pred_test))
 mape = mean_absolute_percentage_error(test, pred_test) * 100
+akurasi = 100 - mape
 
 
 # ===============================
-# EVALUASI MODEL
+# SECTION 1 — KPI DASHBOARD
 # ===============================
-col_kpi1, col_kpi2, col_kpi3 = st.columns(3)
+st.markdown(
+    """
+    <div class="section-header">
+        <div class="dot"></div>
+        <span style="font-size:1rem;font-weight:700;color:#1A1D2E;">Dashboard Metrik Performa Model</span>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+
+col_kpi1, col_kpi2, col_kpi3 = st.columns(3, gap="small")
 
 with col_kpi1:
     st.markdown(
         f"""
-    <div class="box-gradientblue" style="text-align: center;">
-        <small>Mean Absolute Error (MAE)</small><br>
-        <span style="font-size: 2rem; font-weight: 800;">{mae:.2f}</span>
-    </div>
-    """,
+        <div class="box-gradientblue" style="text-align:center;padding:20px 16px;">
+            <div style="font-size:0.72rem;font-weight:700;color:#3B82F6;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">MAE</div>
+            <div style="font-size:2rem;font-weight:900;color:#1A1D2E;line-height:1;">{mae:.2f}</div>
+            <div style="font-size:0.75rem;color:#6B7280;margin-top:4px;">Mean Absolute Error</div>
+        </div>
+        """,
         unsafe_allow_html=True,
     )
 
 with col_kpi2:
     st.markdown(
         f"""
-    <div class="box-gradientpurple" style="text-align: center;">
-        <small>Root Mean Square Error (RMSE)</small><br>
-        <span style="font-size: 2rem; font-weight: 800;">{rmse:.2f}</span>
-    </div>
-    """,
+        <div class="box-gradientpurple" style="text-align:center;padding:20px 16px;">
+            <div style="font-size:0.72rem;font-weight:700;color:#7C3AED;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">RMSE</div>
+            <div style="font-size:2rem;font-weight:900;color:#1A1D2E;line-height:1;">{rmse:.2f}</div>
+            <div style="font-size:0.75rem;color:#6B7280;margin-top:4px;">Root Mean Square Error</div>
+        </div>
+        """,
         unsafe_allow_html=True,
     )
 
 with col_kpi3:
     st.markdown(
         f"""
-    <div class="box-gradientorange" style="text-align: center;">
-        <small>MAPE (Persentase Error)</small><br>
-        <span style="font-size: 2rem; font-weight: 800;">{mape:.2f}%</span>
-    </div>
-    """,
+        <div class="box-gradientorange" style="text-align:center;padding:20px 16px;">
+            <div style="font-size:0.72rem;font-weight:700;color:#F59E0B;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">MAPE</div>
+            <div style="font-size:2rem;font-weight:900;color:#1A1D2E;line-height:1;">{mape:.2f}%</div>
+            <div style="font-size:0.75rem;color:#6B7280;margin-top:4px;">Mean Absolute % Error</div>
+        </div>
+        """,
         unsafe_allow_html=True,
     )
 
-# Akurasi
-akurasi = 100 - mape
 st.markdown(
     f"""
-<div class="box-outline">
+<div class="box-outline" style="margin-top:4px;">
     Model SARIMA memiliki akurasi prediksi sebesar <strong>{akurasi:.2f}%</strong> dengan tingkat error (MAPE) <strong>{mape:.2f}%</strong>.
     Dalam pemodelan time series epidemiologi penyakit menular, nilai ini <strong>sangat wajar</strong>.
     Kasus DBD memiliki sifat <strong>fluktuatif</strong> yang ekstrem dan rentan terhadap <strong>anomali</strong> seperti contohnya pandemi covid lalu,
@@ -112,96 +126,132 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-
-# ===============================
-# ACTUAL VS PREDICTED
-# ===============================
 st.divider()
-with st.container():
-    st.subheader("Visualisasi Uji Coba: Data Aktual vs Prediksi")
-
-    df_eval = pd.DataFrame(
-        {
-            "periode": df_total["periode"][train_size:],
-            "Aktual": test.values,
-            "Prediksi": pred_test.values,
-        }
-    )
-
-    fig_compare = px.line(
-        df_eval,
-        x="periode",
-        y=["Aktual", "Prediksi"],
-        color_discrete_map={"Aktual": "#FFAA01", "Prediksi": "#E60001"},
-    )
-
-    fig_compare.update_layout(
-        paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor="rgba(0,0,0,0)",
-        legend_title_text="Keterangan:",
-        margin=dict(t=20, b=20, l=10, r=10),
-    )
-
-    st.plotly_chart(fig_compare, use_container_width=True)
-
-    st.markdown(
-        """
-    <div class="box-gradientorange">
-        Grafik di atas menunjukkan bahwa model <strong>sangat konsisten menangkap pola musiman</strong> (kapan kasus naik dan turun). 
-        Selisih (gap) yang terjadi biasanya berada pada titik puncak ekstrem, di mana realita kasus (Aktual) melonjak lebih tinggi dari tren historisnya. Ini membuktikan model bersifat <i>robust</i> (stabil) namun tetap konservatif dalam memberikan estimasi.
-    </div>
-    """,
-        unsafe_allow_html=True,
-    )
 
 
 # ===============================
-# ANALISIS RESIDUAL
+# SECTION 2 — AKTUAL VS PREDIKSI
 # ===============================
-st.divider()
-st.subheader("Analisis Sisaan Prediksi (Residual Analysis)")
-
-# Definisi Residual
 st.markdown(
     """
-<div class="box-outline">
-    <strong>Apa itu Residual?</strong><br>
-    Residual adalah selisih atau "sisa" antara data asli dengan hasil tebakan model. 
-    Secara matematis: <br><code>Residual = Data Aktual - Data Prediksi</code>.
+    <div class="section-header">
+        <div class="dot" style="background:linear-gradient(135deg,#F59E0B,#EF4444);"></div>
+        <span style="font-size:1rem;font-weight:700;color:#1A1D2E;">Visualisasi Uji Coba: Data Aktual vs Prediksi</span>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+
+df_eval = pd.DataFrame(
+    {
+        "periode": df_total["periode"][train_size:],
+        "Aktual": test.values,
+        "Prediksi": pred_test.values,
+    }
+)
+
+fig_compare = go.Figure()
+fig_compare.add_trace(go.Scatter(
+    x=df_eval["periode"], y=df_eval["Aktual"],
+    mode="lines", name="Aktual",
+    line=dict(color="#F59E0B", width=2.5),
+))
+fig_compare.add_trace(go.Scatter(
+    x=df_eval["periode"], y=df_eval["Prediksi"],
+    mode="lines", name="Prediksi",
+    line=dict(color="#5B6EF5", width=2.5, dash="dot"),
+))
+fig_compare.update_layout(
+    paper_bgcolor="rgba(0,0,0,0)",
+    plot_bgcolor="rgba(0,0,0,0)",
+    font=dict(family="Inter", size=12),
+    legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
+    margin=dict(t=20, b=20, l=10, r=10),
+    xaxis=dict(gridcolor="#F0F2FA", title="Periode"),
+    yaxis=dict(gridcolor="#F0F2FA", title="Jumlah Kasus"),
+    hovermode="x unified",
+)
+st.plotly_chart(fig_compare, use_container_width=True)
+
+st.markdown(
+    """
+<div class="box-gradientorange">
+    Grafik di atas menunjukkan bahwa model <strong>sangat konsisten menangkap pola musiman</strong> (kapan kasus naik dan turun). 
+        Selisih (gap) yang terjadi biasanya berada pada titik puncak ekstrem, di mana realita kasus (Aktual) melonjak lebih tinggi 
+        dari tren historisnya. Ini membuktikan model bersifat <i>robust</i> (stabil) namun tetap konservatif dalam memberikan estimasi.
 </div>
 """,
     unsafe_allow_html=True,
 )
 
-col_res1, col_res2 = st.columns(2, gap="large")
+
+# ===============================
+# SECTION 3 — ANALISIS RESIDUAL
+# ===============================
+st.divider()
+st.markdown(
+    """
+    <div class="section-header">
+        <div class="dot" style="background:linear-gradient(135deg,#3B82F6,#7C3AED);"></div>
+        <span style="font-size:1rem;font-weight:700;color:#1A1D2E;">Analisis Sisaan Prediksi (Residual Analysis)</span>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+
+st.markdown(
+    """
+<div class="box-blue" style="margin-bottom:16px;">
+    <strong>Apa itu Residual?</strong><br>
+    Residual adalah selisih atau "sisa" antara data asli dengan hasil tebakan model. 
+    Secara matematis: <br><code>Residual = Data Aktual - Data Prediksi</code>
+</div>
+""",
+    unsafe_allow_html=True,
+)
 
 residual = test.values - pred_test.values
 
+df_residual = pd.DataFrame(
+    {"periode": df_total["periode"][train_size:], "residual": residual}
+)
 
-with st.container():
-    st.markdown("**1. Residual Error Over Time**")
-    df_residual = pd.DataFrame(
-        {"periode": df_total["periode"][train_size:], "residual": residual}
-    )
-    fig_res = px.line(
-        df_residual, x="periode", y="residual", color_discrete_sequence=["#4c80f8"]
-    )
-    fig_res.add_hline(
-        y=0, line_dash="dash", line_color="red", annotation_text="Target: Error 0"
-    )
-    fig_res.update_layout(
-        paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor="rgba(0,0,0,0)",
-        margin=dict(t=20, b=10, l=10, r=10),
-    )
-    st.plotly_chart(fig_res, use_container_width=True)
+fig_res = go.Figure()
+fig_res.add_trace(go.Scatter(
+    x=df_residual["periode"], y=df_residual["residual"],
+    mode="lines+markers",
+    line=dict(color="#5B6EF5", width=2),
+    marker=dict(size=4, color="#5B6EF5"),
+    fill="tozeroy",
+    fillcolor="rgba(91,110,245,0.06)",
+    name="Residual",
+))
+fig_res.add_hline(
+    y=0,
+    line_dash="dash",
+    line_color="#F43F5E",
+    line_width=1.5,
+    annotation_text="Target: Error = 0",
+    annotation_font_size=11,
+    annotation_font_color="#F43F5E",
+)
+fig_res.update_layout(
+    paper_bgcolor="rgba(0,0,0,0)",
+    plot_bgcolor="rgba(0,0,0,0)",
+    font=dict(family="Inter", size=12),
+    margin=dict(t=20, b=10, l=10, r=10),
+    xaxis=dict(gridcolor="#F0F2FA", title="Periode"),
+    yaxis=dict(gridcolor="#F0F2FA", title="Residual (Aktual − Prediksi)"),
+    hovermode="x unified",
+    showlegend=False,
+)
+st.plotly_chart(fig_res, use_container_width=True)
 
-# PENJELASAN RESIDUAL
 st.markdown(
     """
-<div class="box-blue">
-    <strong>Cara Membaca Grafik Error:</strong><br>
-    <ul>
+<div class="box-gradientblue">
+    <strong>Cara Membaca Grafik Residual:</strong>
+    <ul style="margin:8px 0 0 0;">
         <li><strong>Mendekati Angka 0:</strong> Semakin banyak titik yang berada di garis 0, artinya model semakin <strong>"Tepat Sasaran"</strong> dalam menebak kenyataan.</li>
         <li><strong>Nilai Positif (Menjauhi 0 ke Atas):</strong> Model kecolongan atau <i>Under-forecasting</i>. Artinya, jumlah kasus asli ternyata jauh lebih banyak dibanding tebakan model.</li>
         <li><strong>Nilai Negatif (Menjauhi 0 ke Bawah):</strong> Model terlalu waspada atau <i>Over-forecasting</i>. Artinya, model menebak angka tinggi, namun kenyataannya kasusnya rendah.</li>
@@ -213,7 +263,7 @@ st.markdown(
 
 st.markdown(
     """
-<div class="box-blue">
+<div class="box-success">
     <strong>Kesimpulan Analisis:</strong> Berdasarkan Histogram, mayoritas error berkumpul di tengah (nol). Lonjakan error yang menjauhi nol hanya terjadi pada awal 2024, yang secara faktual merupakan anomali Kejadian Luar Biasa (KLB) nasional.
 </div>
 """,
