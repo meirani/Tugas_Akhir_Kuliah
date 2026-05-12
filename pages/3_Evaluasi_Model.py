@@ -33,11 +33,35 @@ st.markdown(
 st.divider()
 
 
+import glob
+
 # ===============================
 # BACKEND MODEL
 # ===============================
-df = pd.read_csv("data/Data_DBD_FINAL_ANALISIS_2010_2025.csv")
-df["periode"] = pd.to_datetime(df["periode"])
+if "df_main" not in st.session_state:
+    semua_file = sorted(glob.glob("data/*.csv"))
+    
+    if not semua_file:
+        st.error("Tidak ada file CSV ditemukan di folder data/")
+        st.stop()
+    
+    semua_df = []
+    for file in semua_file:
+        try:
+            df_temp = pd.read_csv(file)
+            semua_df.append(df_temp)
+        except Exception as e:
+            st.warning(f"File {file} gagal dibaca: {e}")
+    
+    df_main = pd.concat(semua_df, ignore_index=True)
+    df_main["periode"] = pd.to_datetime(df_main["periode"])
+    df_main["tahun"] = df_main["tahun"].astype(int)
+    df_main["bulan"] = df_main["bulan"].astype(int)
+    df_main = df_main.drop_duplicates(subset=["kecamatan", "periode"])
+    df_main = df_main.sort_values("periode").reset_index(drop=True)
+    st.session_state["df_main"] = df_main
+
+df = st.session_state["df_main"].copy()  # ← baris ini tetap ada
 
 df_total = df.groupby("periode")["jumlah_kasus"].sum().reset_index()
 df_total = df_total.sort_values("periode")

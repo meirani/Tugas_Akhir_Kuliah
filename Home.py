@@ -1,5 +1,6 @@
 import streamlit as st
 from components import show_footer, local_css
+import pandas as pd
 
 # ===============================
 # CONFIG & CUSTOM CSS
@@ -7,6 +8,19 @@ from components import show_footer, local_css
 st.set_page_config(page_title="Home - Prediksi DBD", layout="wide", page_icon="🦟")
 
 local_css("style.css")
+
+# ===============================
+# INISIALISASI SESSION STATE
+# ===============================
+if "df_main" not in st.session_state:
+    df_main = pd.read_csv("data/Data_DBD_FINAL_ANALISIS_2010_2025.csv")
+    df_main["periode"] = pd.to_datetime(df_main["periode"])
+    df_main["tahun"] = df_main["tahun"].astype(int)
+    df_main["bulan"] = df_main["bulan"].astype(int)
+    st.session_state["df_main"] = df_main
+
+if "data_ditambah" not in st.session_state:
+    st.session_state["data_ditambah"] = False
 
 
 # ===============================
