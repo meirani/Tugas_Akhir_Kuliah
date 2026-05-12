@@ -38,7 +38,7 @@ import glob
 # ===============================
 # BACKEND MODEL
 # ===============================
-if "df_main" not in st.session_state:
+def load_semua_data():
     semua_file = sorted(glob.glob("data/*.csv"))
     
     if not semua_file:
@@ -54,14 +54,22 @@ if "df_main" not in st.session_state:
             st.warning(f"File {file} gagal dibaca: {e}")
     
     df_main = pd.concat(semua_df, ignore_index=True)
-    df_main["periode"] = pd.to_datetime(df_main["periode"])
+    df_main["periode"] = pd.to_datetime(df_main["periode"], dayfirst=False, format="mixed")
     df_main["tahun"] = df_main["tahun"].astype(int)
     df_main["bulan"] = df_main["bulan"].astype(int)
     df_main = df_main.drop_duplicates(subset=["kecamatan", "periode"])
     df_main = df_main.sort_values("periode").reset_index(drop=True)
-    st.session_state["df_main"] = df_main
+    return df_main
 
-df = st.session_state["df_main"].copy()  # ← baris ini tetap ada
+# Selalu load ulang dari file jika belum ada simulasi aktif
+if "data_ditambah" not in st.session_state:
+    st.session_state["data_ditambah"] = False
+
+if not st.session_state["data_ditambah"]:
+    df = load_semua_data()
+    st.session_state["df_main"] = df
+else:
+    df = st.session_state["df_main"].copy()
 
 df_total = df.groupby("periode")["jumlah_kasus"].sum().reset_index()
 df_total = df_total.sort_values("periode")
