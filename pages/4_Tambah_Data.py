@@ -25,7 +25,7 @@ def load_semua_data():
         except Exception as e:
             st.warning(f"File {file} gagal dibaca: {e}")
     df = pd.concat(semua_df, ignore_index=True)
-    df["periode"] = pd.to_datetime(df["periode"])
+    df["periode"] = pd.to_datetime(df["periode"], dayfirst=False, format="mixed")  # ← difix
     df["tahun"] = df["tahun"].astype(int)
     df["bulan"] = df["bulan"].astype(int)
     df = df.drop_duplicates(subset=["kecamatan", "periode"])
@@ -35,11 +35,11 @@ def load_semua_data():
 # ===============================
 # INISIALISASI SESSION STATE
 # ===============================
-if "df_main" not in st.session_state:
-    st.session_state["df_main"] = load_semua_data()
-
 if "data_ditambah" not in st.session_state:
     st.session_state["data_ditambah"] = False
+
+if not st.session_state["data_ditambah"]:
+    st.session_state["df_main"] = load_semua_data()
 
 # ===============================
 # HEADER
@@ -137,7 +137,7 @@ if uploaded_file is not None:
         if kolom_hilang:
             st.error(f"Kolom berikut tidak ditemukan di file: **{', '.join(kolom_hilang)}**. Periksa kembali format CSV kamu.")
         else:
-            df_new["periode"] = pd.to_datetime(df_new["periode"])
+            df_new["periode"] = pd.to_datetime(df_new["periode"], dayfirst=False, format="mixed")  # ← difix
             df_new["tahun"] = df_new["tahun"].astype(int)
             df_new["bulan"] = df_new["bulan"].astype(int)
             df_new["jumlah_kasus"] = df_new["jumlah_kasus"].astype(int)
@@ -155,7 +155,6 @@ if uploaded_file is not None:
                 f"pada periode: **{', '.join(periode_baru)}**"
             )
 
-            # Warning jika kecamatan tidak lengkap
             if kecamatan_baru < jumlah_kecamatan_default:
                 st.warning(
                     f"⚠️ Data hanya mencakup **{kecamatan_baru} dari {jumlah_kecamatan_default} kecamatan**. "
@@ -168,13 +167,10 @@ if uploaded_file is not None:
 
             with col_btn1:
                 if st.button("Tambahkan ke Simulasi", type="primary", use_container_width=True):
-                    # Load ulang semua file di folder data/ sebagai base
                     df_default = load_semua_data()
-
                     df_combined = pd.concat([df_default, df_new], ignore_index=True)
                     df_combined = df_combined.drop_duplicates(subset=["kecamatan", "periode"])
                     df_combined = df_combined.sort_values("periode").reset_index(drop=True)
-
                     st.session_state["df_main"] = df_combined
                     st.session_state["data_ditambah"] = True
                     st.rerun()
